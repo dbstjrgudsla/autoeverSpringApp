@@ -34,10 +34,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
+      # Gradle wrapper에 실행 권한 부여
+      - name: Give execute permission to gradlew
+        run: chmod +x ./gradlew
+
       # JAR 파일 빌드 (Gradle 사용)
       - name: Build JAR file
-        run: |
-          ./gradlew build  # Gradle 빌드 명령어
+        run: ./gradlew build  # Gradle 빌드 명령어
 
       # Docker 설정
       - name: Set up Docker Buildx
