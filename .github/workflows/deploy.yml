@@ -5,12 +5,12 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: us-east-1                   # AWS 리전 수정
-  ECR_REPOSITORY: autoeverapp           # ECR 리포지토리 이름 수정
-  ECS_SERVICE: servicetest1                 # ECS 서비스 이름 수정
-  ECS_CLUSTER: autoever-cluster             # ECS 클러스터 이름 수정
-  ECS_TASK_DEFINITION: task-definition.json # ECS 작업 정의 파일 경로 수정
-  CONTAINER_NAME: autoeverapp           # 컨테이너 이름 수정
+  AWS_REGION: us-east-1  # AWS 리전
+  ECR_REPOSITORY: autoeverapp  # ECR 리포지토리 이름
+  ECS_SERVICE: servicetest1  # ECS 서비스 이름
+  ECS_CLUSTER: autoever-cluster  # ECS 클러스터 이름
+  ECS_TASK_DEFINITION: task-definition.json  # ECS 작업 정의 파일 경로
+  CONTAINER_NAME: autoeverapp  # 컨테이너 이름
 
 permissions:
   contents: read
@@ -48,9 +48,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
+          chmod +x ./gradlew  # 권한 수정
           ./gradlew build
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
