@@ -2,7 +2,7 @@
   "taskDefinitionArn": "arn:aws:ecs:us-east-1:908027390063:task-definition/tasktest:1",
   "containerDefinitions": [
     {
-      "name": "autoeverapp",
+      "name": "containertest",
       "cpu": 0,
       "portMappings": [
         {
