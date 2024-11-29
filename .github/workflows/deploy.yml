@@ -5,12 +5,12 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: us-east-1  # AWS 리전
-  ECR_REPOSITORY: autoeverapp  # ECR 리포지토리 이름
-  ECS_SERVICE: servicetest1  # ECS 서비스 이름
-  ECS_CLUSTER: autoever-cluster  # ECS 클러스터 이름
-  ECS_TASK_DEFINITION: task-definition.json  # ECS 작업 정의 파일 경로
-  CONTAINER_NAME: containertest  # task-definition.json의 컨테이너 이름과 일치하도록 수정
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: autoeverapp
+  ECS_SERVICE: servicetest1
+  ECS_CLUSTER: autoever-cluster
+  ECS_TASK_DEFINITION: task-definition.json
+  CONTAINER_NAME: containertest
 
 permissions:
   contents: read
@@ -32,7 +32,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -40,7 +40,7 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
@@ -48,7 +48,7 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          chmod +x ./gradlew  # 권한 수정
+          chmod +x ./gradlew
           ./gradlew build
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
