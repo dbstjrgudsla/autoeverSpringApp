@@ -1,19 +1,10 @@
-name: Deploy to Amazon ECS
-
-on:
-  push:
-    branches: [ "main" ]
-
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: autoeverapp
-  ECS_SERVICE: servicetest1
-  ECS_CLUSTER: autoever-cluster
+  ECS_SERVICE: servicetest1    # 기존 servicetest1은 그대로
+  ECS_CLUSTER: AutoeverAppCluster  # 클러스터 이름을 AutoeverAppCluster로 변경
   ECS_TASK_DEFINITION: task-definition.json
-  CONTAINER_NAME: containertest
-
-permissions:
-  contents: read
+  CONTAINER_NAME: containertest  # 적절한 컨테이너 이름 설정
 
 jobs:
   deploy:
@@ -67,5 +58,5 @@ jobs:
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
+          cluster: ${{ env.ECS_CLUSTER }}  # 클러스터 이름을 AutoeverAppCluster로 변경
           wait-for-service-stability: true
