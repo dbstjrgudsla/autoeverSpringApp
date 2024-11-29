@@ -10,7 +10,7 @@ env:
   ECS_SERVICE: servicetest1  # ECS 서비스 이름
   ECS_CLUSTER: autoever-cluster  # ECS 클러스터 이름
   ECS_TASK_DEFINITION: task-definition.json  # ECS 작업 정의 파일 경로
-  CONTAINER_NAME: autoeverapp  # 컨테이너 이름
+  CONTAINER_NAME: containertest  # task-definition.json의 컨테이너 이름과 일치하도록 수정
 
 permissions:
   contents: read
