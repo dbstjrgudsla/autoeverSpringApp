@@ -1,10 +1,19 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches: [ "main" ]
+
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: autoeverapp
-  ECS_SERVICE: servicetest1    # 기존 servicetest1은 그대로
-  ECS_CLUSTER: AutoeverAppCluster  # 클러스터 이름을 AutoeverAppCluster로 변경
+  ECS_SERVICE: servicetest1     # 서비스 이름
+  ECS_CLUSTER: AutoeverAppCluster  # 클러스터 이름
   ECS_TASK_DEFINITION: task-definition.json
-  CONTAINER_NAME: containertest  # 적절한 컨테이너 이름 설정
+  CONTAINER_NAME: containertest  # 컨테이너 이름
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
