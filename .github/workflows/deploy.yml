@@ -26,10 +26,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Docker 설정
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
       # AWS CLI 설정
       - name: Set up AWS CLI
         uses: aws-actions/configure-aws-credentials@v2
@@ -37,6 +33,15 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
+
+      # JAR 파일 빌드 (Gradle 사용)
+      - name: Build JAR file
+        run: |
+          ./gradlew build  # Gradle 빌드 명령어
+
+      # Docker 설정
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       # Docker 로그인 (ECR)
       - name: Log in to Amazon ECR
