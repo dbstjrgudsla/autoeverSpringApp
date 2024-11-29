@@ -3,6 +3,7 @@
   "containerDefinitions": [
     {
       "name": "containertest",
+      "image": "908027390063.dkr.ecr.us-east-1.amazonaws.com/autoeverapp",
       "cpu": 0,
       "portMappings": [
         {
